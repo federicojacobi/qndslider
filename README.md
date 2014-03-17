@@ -18,23 +18,23 @@ Easiest thing in the world:
 
 In HTML:
 
-<div id="yourName">
-  <div class="slide">First slide, do whatever you want here</div>
-  <div class="slide">Second slide</div>
-  <div class="slide">Third slide</div>
-  <div class="slide">Fourth slide</div>
-</div>
+&lt;div id=&quot;yourName&quot;&gt;
+  &lt;div class=&quot;slide&quot;&gt;First slide, do whatever you want here&lt;/div&gt;
+  &lt;div class=&quot;slide&quot;&gt;Second slide&lt;/div&gt;
+  &lt;div class=&quot;slide&quot;&gt;Third slide&lt;/div&gt;
+  &lt;div class=&quot;slide&quot;&gt;Fourth slide&lt;/div&gt;
+&lt;/div&gt;
 
 OR you can do:
 
-<ul id="mySlider">
-  <li class="slide"></li>
-  <li class="slide"></li>
-</ul>
+&lt;ul id=&quot;mySlider&quot;&gt;
+  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;
+  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 Then in JS
 
-var GreatSlider = new Slider( "yourName" );  // you can use a jQuery selector as a parameter as in "body .content > div" or whatever
-var anotherSlider = new Slider( "mySlider" );
+var GreatSlider = new Slider( &quot;yourName&quot; );  // you can use a jQuery selector as a parameter as in &quot;body .content &gt; div&quot; or whatever
+var anotherSlider = new Slider( &quot;mySlider&quot; );
 
-Notice the lack of CSS ... that's on purpose so you can do your own, and understand it !!!
+Notice the lack of CSS ... that&#39;s on purpose so you can do your own, and understand it !!!
