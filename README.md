@@ -18,23 +18,23 @@ Easiest thing in the world:
 
 In HTML:
 
-&lt;div id=&quot;yourName&quot;&gt;
-  &lt;div class=&quot;slide&quot;&gt;First slide, do whatever you want here&lt;/div&gt;
-  &lt;div class=&quot;slide&quot;&gt;Second slide&lt;/div&gt;
-  &lt;div class=&quot;slide&quot;&gt;Third slide&lt;/div&gt;
-  &lt;div class=&quot;slide&quot;&gt;Fourth slide&lt;/div&gt;
-&lt;/div&gt;
+&lt;div id=&quot;yourName&quot;&gt;<br/>
+  &lt;div class=&quot;slide&quot;&gt;First slide, do whatever you want here&lt;/div&gt;<br/>
+  &lt;div class=&quot;slide&quot;&gt;Second slide&lt;/div&gt;<br/>
+  &lt;div class=&quot;slide&quot;&gt;Third slide&lt;/div&gt;<br/>
+  &lt;div class=&quot;slide&quot;&gt;Fourth slide&lt;/div&gt;<br/>
+&lt;/div&gt;<br/>
 
 OR you can do:
 
-&lt;ul id=&quot;mySlider&quot;&gt;
-  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;
-  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;ul id=&quot;mySlider&quot;&gt;<br/>
+  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;<br/>
+  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;<br/>
+&lt;/ul&gt;<br/>
 
 Then in JS
 
-var GreatSlider = new Slider( &quot;yourName&quot; );  // you can use a jQuery selector as a parameter as in &quot;body .content &gt; div&quot; or whatever
-var anotherSlider = new Slider( &quot;mySlider&quot; );
+var GreatSlider = new Slider( &quot;yourName&quot; );  // you can use a jQuery selector as a parameter as in &quot;body .content &gt; div&quot; or whatever<br/>
+var anotherSlider = new Slider( &quot;mySlider&quot; );<br/>
 
 Notice the lack of CSS ... that&#39;s on purpose so you can do your own, and understand it !!!
