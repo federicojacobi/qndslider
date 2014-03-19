@@ -64,7 +64,12 @@ jQuery("document").ready( function() {
 			var obj = this;
 			if ( this.timer == null ) {
 				if ( t < 500 ) t = 500;
-				this.timer = setInterval( function() {obj.next(); callback(); } , t);
+				this.timer = setInterval( 
+					function() {
+						obj.next();
+						if ( callback != null )
+							callback(); 
+					} , t);
 			}
 		};
 		
