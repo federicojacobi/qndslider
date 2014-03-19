@@ -62,15 +62,17 @@ jQuery("document").ready( function() {
 		
 		this.startTimer = function( t, callback ) {
 			var obj = this;
-			if ( this.timer == null ) {
-				if ( t < 500 ) t = 500;
-				this.timer = setInterval( 
-					function() {
-						obj.next();
-						if ( callback != null )
-							callback(); 
-					} , t);
+			if ( this.timer != null ) {
+				this.stopTimer();
 			}
+			if ( t < 500 ) t = 500;
+			this.timer = setInterval( 
+				function() {
+					obj.next();
+					if ( callback != null )
+						callback(); 
+				} , t);
+			return this.timer;
 		};
 		
 		this.stopTimer = function() {
