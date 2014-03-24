@@ -78,7 +78,7 @@ The last line is great when combined with GOTO controls. Because all the control
 			jQuery( "#featured_slider ul.controls li:nth-child(" + featuredSlider["currentSlide"] + ")" ).addClass( "active");
 	});
 	
-If you want to pause on HOVER, there's no pause, BUT there's .stop() so you can do:
+If you want to pause on HOVER, there's no pause, BUT there's .stopTimer() so you can do:
 
 	jQuery( "#featured_slider" ).hover( 
 		function() { 
@@ -88,3 +88,5 @@ If you want to pause on HOVER, there's no pause, BUT there's .stop() so you can 
 			featuredSlider.startTimer( 5000 );
 		}
 	);
+
+This sucks a bit and i'm out to fix it: When you use this HOVER method, you are doing a startTimer again. The callback function is NOT SAVED. So, if you are using it, you need to add it here too.
