@@ -16,20 +16,21 @@ HOW TO
 Easiest thing in the world:
 
 In HTML:
-
-&lt;div id=&quot;yourName&quot;&gt;<br/>
-  &lt;div class=&quot;slide&quot;&gt;First slide, do whatever you want here&lt;/div&gt;<br/>
-  &lt;div class=&quot;slide&quot;&gt;Second slide&lt;/div&gt;<br/>
-  &lt;div class=&quot;slide&quot;&gt;Third slide&lt;/div&gt;<br/>
-  &lt;div class=&quot;slide&quot;&gt;Fourth slide&lt;/div&gt;<br/>
-&lt;/div&gt;<br/>
-
+```
+<div id="yourName"><br/>
+  <div class="slide">First slide, do whatever you want here</div><br/>
+  <div class="slide">Second slide</div><br/>
+  <div class="slide">Third slide</div><br/>
+  <div class="slide">Fourth slide</div><br/>
+</div><br/>
+```
 OR you can do:
-
-&lt;ul id=&quot;mySlider&quot;&gt;<br/>
-  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;<br/>
-  &lt;li class=&quot;slide&quot;&gt;&lt;/li&gt;<br/>
-&lt;/ul&gt;<br/>
+```
+<ul id="mySlider"><br/>
+  <li class="slide"></li><br/>
+  <li class="slide"></li><br/>
+</ul><br/>
+```
 
 Then in JS
 
