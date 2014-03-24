@@ -17,26 +17,26 @@ Easiest thing in the world:
 
 In HTML:
 ```
-<div id="yourName"><br/>
-  <div class="slide">First slide, do whatever you want here</div><br/>
-  <div class="slide">Second slide</div><br/>
-  <div class="slide">Third slide</div><br/>
-  <div class="slide">Fourth slide</div><br/>
+<div id="yourName">
+  <div class="slide">First slide, do whatever you want here</div>
+  <div class="slide">Second slide</div>
+  <div class="slide">Third slide</div>
+  <div class="slide">Fourth slide</div>
 </div><br/>
 ```
-OR you can do:
+OR you can do (but DIVS give you more flexibility, use whatever makes you happy) :
 ```
 <ul id="mySlider"><br/>
-  <li class="slide"></li><br/>
-  <li class="slide"></li><br/>
+  <li class="slide"></li>
+  <li class="slide"></li>
 </ul><br/>
 ```
 
 Then in JS
 ```
 // you can use a jQuery selector as a parameter as in "body .content > div" or whatever
-var GreatSlider = new Slider( &quot;yourName&quot; );
-var anotherSlider = new Slider( &quot;mySlider&quot; );<br/>
+var GreatSlider = new Slider( "yourName" );
+var anotherSlider = new Slider( "mySlider" );
 ```
 Notice the lack of CSS ... that&#39;s on purpose so you can do your own, and understand it !!!
 
