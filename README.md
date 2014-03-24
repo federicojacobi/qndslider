@@ -48,14 +48,14 @@ Controls for next, previous and go to are separate from the main logic and you c
 
 You could do some jQuery magic an attach the click event to something else (assume the control button is inside of the main div wrapper) :
 
-	jQuery( &quot;#yourName .prev-button&quot; ).click( function() {
+	jQuery( "#yourName .prev-button" ).click( function() {
 		GreatSlider.prev();
 	});
 
 If your slides are created dynamically and you don't know how many slides there are, but still want to do GOTO controls ... no problem ... a bit of jQuery will do it:
 
-	jQuery( &quot;#featured_slider .controls li&quot; ).click( function() { 
-		jQuery(this).addClass( &quot;active&quot; ).siblings().removeClass( &quot;active&quot; );
+	jQuery( "#featured_slider .controls li" ).click( function() { 
+		jQuery(this).addClass( "active" ).siblings().removeClass( "active" );
 		featuredSlider.goto( jQuery( this ).index() + 1 );
 	});
 	
@@ -72,13 +72,13 @@ GrearSlider.startTimer( 3000, function() { });    3000ms delay and AFTER the sli
 The last line is great when combined with GOTO controls. Because all the controls are external, you need to change the &quot;active&quot; control to the proper one. Again a bit of jQuery will do the trick:
 
 	GreatSlider.startTimer( 5000, function() {
-			jQuery( &quot;#featured_slider ul.controls li&quot; ).removeClass( &quot;active&quot; );
-			jQuery( &quot;#featured_slider ul.controls li:nth-child(&quot; + featuredSlider[&quot;currentSlide&quot;] + &quot;)&quot; ).addClass( &quot;active&quot;);
+			jQuery( "#featured_slider ul.controls li" ).removeClass( "active" );
+			jQuery( "#featured_slider ul.controls li:nth-child(" + featuredSlider["currentSlide"] + ")" ).addClass( "active");
 	});
 	
 If you want to pause on HOVER, there's no pause, BUT there's .stop() so you can do:
 
-	jQuery( &quot;#featured_slider&quot; ).hover( 
+	jQuery( "#featured_slider" ).hover( 
 		function() { 
 			featuredSlider.stopTimer();
 		}, 
