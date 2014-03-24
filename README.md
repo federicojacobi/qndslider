@@ -33,20 +33,21 @@ OR you can do:
 ```
 
 Then in JS
-
-var GreatSlider = new Slider( &quot;yourName&quot; );  // you can use a jQuery selector as a parameter as in &quot;body .content &gt; div&quot; or whatever<br/>
+```
+// you can use a jQuery selector as a parameter as in "body .content > div" or whatever
+var GreatSlider = new Slider( &quot;yourName&quot; );
 var anotherSlider = new Slider( &quot;mySlider&quot; );<br/>
-
+```
 Notice the lack of CSS ... that&#39;s on purpose so you can do your own, and understand it !!!
 
 CONTROLS PREV / NEXT / GOTO
 ===========================
 Controls for next, previous and go to are separate from the main logic and you can place them wherever you want. Ideally i'd place them inside the main slider div just to keep it neat, but you can use them with an onClick event anywhere. Also, you are not fixed on how to build your controls, as they fire with the slider object methods.
+```
+<a href"#" onclick="GreatSlider.next()" >NEXT</a> -- <a href="#" onclick="GreatSlider.prev()" >PREV</a>
 
-&lt;a href&quot;#&quot; onclick=&quot;GreatSlider.next()&quot; &gt;NEXT&lt;/a&gt; -- &lt;a href=&quot;#&quot; onclick=&quot;GreatSlider.prev()&quot; &gt;PREV&lt;/a&gt;
-
-&lt;a href=&quot;#&quot; onclick=&quot;GreatSlider.goto(3)&quot; &gt;Go to slide 3&lt;/a&gt;
-
+<a href="#" onclick="GreatSlider.goto(3)" >Go to slide 3</a>
+```
 You could do some jQuery magic an attach the click event to something else (assume the control button is inside of the main div wrapper) :
 
 	jQuery( "#yourName .prev-button" ).click( function() {
