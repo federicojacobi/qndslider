@@ -10,6 +10,8 @@ NEXT / PREV arrows are optional and are not built by the slider, giving you cont
 
 In the same fashion if you need to show a specific slide just do .goto(4) to show the 4th slide.
 
+When the slider loads, all the slides are hidden ( jQuery(slides).hide() ) and then first one is shown.
+
 HOW TO
 ======
 
@@ -42,7 +44,7 @@ Notice the lack of CSS ... that&#39;s on purpose so you can do your own, and und
 
 CONTROLS PREV / NEXT / GOTO
 ===========================
-Controls for next, previous and go to are separate from the main logic and you can place them wherever you want. Ideally i'd place them inside the main slider div just to keep it neat, but you can use them with an onClick event anywhere. Also, you are not fixed on how to build your controls, as they fire with the slider object methods.
+Controls for next, previous and go to are separate from the main logic and you can place them wherever you want. Ideally i&#39;d place them inside the main slider div just to keep it neat, but you can use them with an onClick event anywhere. Also, you are not fixed on how to build your controls, as they fire with the slider object methods.
 ```
 <a href"#" onclick="GreatSlider.next()" >NEXT</a> -- <a href="#" onclick="GreatSlider.prev()" >PREV</a>
 
@@ -69,16 +71,15 @@ Of course your slider needs a timer. But it is not active by default. You need t
 
 GreatSlider.startTimer()   Defaults to 500ms delay
 GreatSlider.startTimer( 3000 );    3000ms delay
-GrearSlider.startTimer( 3000, function() { });    3000ms delay and AFTER the slide is changed fires the function
+GrearSlider.startTimer( 3000, function() { });    3000ms delay and AFTER the the slide is changes function is called. Notice the call happens after the doAfter() callback (see below).
 
-The last line is great when combined with GOTO controls. Because all the controls are external, you need to change the &quot;active&quot; control to the proper one. Again a bit of jQuery will do the trick:
+The last line is great if you need to do something in particular after the timer clicks, but not when the other controls are clicked:
 
 	GreatSlider.startTimer( 5000, function() {
-			jQuery( "#featured_slider ul.controls li" ).removeClass( "active" );
-			jQuery( "#featured_slider ul.controls li:nth-child(" + featuredSlider["currentSlide"] + ")" ).addClass( "active");
+			console.log('The timer has clicked');
 	});
 	
-If you want to pause on HOVER, there's no pause, BUT there's .stopTimer() so you can do:
+If you want to pause on HOVER, there&#39;s no pause, BUT there&#39;s .stopTimer() so you can do:
 
 	jQuery( "#featured_slider" ).hover( 
 		function() { 
@@ -89,4 +90,13 @@ If you want to pause on HOVER, there's no pause, BUT there's .stopTimer() so you
 		}
 	);
 
-This sucks a bit and i'm out to fix it: When you use this HOVER method, you are doing a startTimer again. The callback function is NOT SAVED. So, if you are using it, you need to add it here too.
+doBefore AND doAfter
+====================
+These are callbacks that happen before and the slide is changed. Useful when you need to update you external controls:
+
+	GreatSlider.doAfter = function( currentSlideElement ) {
+		jQuery( "#featured_slider ul.controls li" ).removeClass( "active" );
+		jQuery( "#featured_slider ul.controls li:nth-child(" + featuredSlider["currentSlide"] + ")" ).addClass( "active");
+	};
+
+doBefore and doAfter are called whenever you do .next(), .prev() and .goto(). 
