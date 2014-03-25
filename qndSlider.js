@@ -65,11 +65,11 @@ jQuery("document").ready( function() {
 			if ( this.timer != null ) {
 				this.stopTimer();
 			}
-			if ( t < 500 ) t = 500;
+			if ( t < 500 || t == null ) t = 500;
 			this.timer = setInterval( 
 				function() {
 					obj.next();
-					if ( callback != null )
+					if ( typeof callback === 'function' )
 						callback(); 
 				} , t);
 			return this.timer;
