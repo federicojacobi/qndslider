@@ -7,6 +7,8 @@ jQuery("document").ready( function() {
 		this.slides.first().show();
 		this.currentSlide = 1;
 		this.timer = null;
+		this.doBefore = null;
+		this.doAfter = null;
 		
 		this.next = function() {
 			if ( this.slides.length < 2 ) return false;
@@ -18,12 +20,7 @@ jQuery("document").ready( function() {
 				this.currentSlide++;
 			}
 			var newSlide = this.getSlide( this.currentSlide );
-			
-			jQuery( oldSlide )
-				.fadeOut( this.delay, function() {
-					jQuery( newSlide ).fadeIn( this.delay ).addClass("active");
-				})
-				.removeClass("active");
+			this.switch( oldSlide, newSlide );
 		};
 		
 		this.prev = function() {
@@ -36,12 +33,7 @@ jQuery("document").ready( function() {
 				this.currentSlide--;
 			}
 			var newSlide = this.getSlide( this.currentSlide );
-			
-			jQuery( oldSlide )
-				.fadeOut( this.delay, function() {
-					jQuery( newSlide ).fadeIn( this.delay ).addClass("active");
-				})
-				.removeClass("active");
+			this.switch( oldSlide, newSlide );
 		};
 		
 		this.goto = function( n, stop ) {
@@ -52,10 +44,18 @@ jQuery("document").ready( function() {
 			var oldSlide = this.getSlide( this.currentSlide );
 			this.currentSlide = n;
 			var newSlide = this.getSlide( this.currentSlide );
-			
-			jQuery( oldSlide )
+			this.switch( oldSlide, newSlide );
+		};
+		
+		this.switch = function( from, to ) {
+			var obj = this;
+			if ( typeof this.doBefore === 'function' )
+				this.doBefore( from );
+			jQuery( from )
 				.fadeOut( this.delay, function() {
-					jQuery( newSlide ).fadeIn( this.delay ).addClass("active");
+					jQuery( to ).fadeIn( obj.delay ).addClass("active");
+				        if ( typeof obj.doAfter === 'function' )
+						obj.doAfter( to );
 				})
 				.removeClass("active");
 		};
@@ -77,45 +77,12 @@ jQuery("document").ready( function() {
 		
 		this.stopTimer = function() {
 			clearInterval( this.timer );
-		}
+		};
 		
 		this.getSlide = function( n ) {
 			return this.slides[n-1];
 		};
 	}
 	
-	var mySlider = new Slider( "#theSlider" );
-	jQuery( "#theSlider .controls .first" ).click( function() { 
-		jQuery(this).addClass( "active").siblings().removeClass( "active" );
-		awardSlider.goto(1);
-	});
-	jQuery( "#theSlider .controls .second" ).click( function() {
-		jQuery(this).addClass( "active").siblings().removeClass( "active" );
-		awardSlider.goto(2);
-	});
-	jQuery( "#theSlider .controls .third" ).click( function() {
-		jQuery(this).addClass( "active").siblings().removeClass( "active" );
-		awardSlider.goto(3);
-	});
-	jQuery( "#theSlider .controls .forth" ).click( function() {
-		jQuery(this).addClass( "active").siblings().removeClass( "active" );
-		awardSlider.goto(4);
-	});
-	jQuery( "#theSlider .controls .fifth" ).click( function() {
-		jQuery(this).addClass( "active").siblings().removeClass( "active" );
-		awardSlider.goto(5);
-	});
-	awardSlider.startTimer( 3000, function() {
-			jQuery( "#theSlider .controls span" ).removeClass( "active" );
-			jQuery( "#theSlider .controls span:nth-child(" + awardSlider["currentSlide"] + ")" ).addClass( "active");
-	});
-
-	var slider = new Slider( "#theSlider2" );			
-	jQuery( "#slider .larrow" ).click( function() {
-		slider.prev();
-	});
-	
-	jQuery( "#slider .rarrow" ).click( function() {
-		slider.next();
-	});
+	// All your mods/code goes here ... including the creation of the slider as in var mySlider = new Slider('#mySlider');
 });
