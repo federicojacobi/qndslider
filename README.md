@@ -2,7 +2,7 @@ Quick and Dirty Slider
 ======================
 A JS Developer friendly slider. Of course you can code it yourself, but i already did it for you.
 
-This is NOT a jQuery plugin, but it uses jQuery (who doesn't nowadays).
+This is NOT a jQuery plugin, but it uses jQuery (who doesn&#39;t nowadays), so you must add the code inside of jQuery(document).ready()
 
 The whole purpose is to cut the bloat and do a quick slider with fade in, fade out.
 
