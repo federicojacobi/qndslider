@@ -9,6 +9,7 @@ jQuery("document").ready( function() {
 		this.timer = null;
 		this.doBefore = null;
 		this.doAfter = null;
+		this.timerWait = 1000;
 		
 		this.next = function() {
 			if ( this.slides.length < 2 ) return false;
@@ -65,7 +66,13 @@ jQuery("document").ready( function() {
 			if ( this.timer != null ) {
 				this.stopTimer();
 			}
-			if ( t < 500 || t == null ) t = 500;
+			if ( t == null )
+				t = this.timerWait;
+			else {
+				if ( t < 125 ) t = this.timerWait;
+				this.timeWait = t;
+			}
+			
 			this.timer = setInterval( 
 				function() {
 					obj.next();
