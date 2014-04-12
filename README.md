@@ -92,7 +92,7 @@ If you want to pause on HOVER, there&#39;s no pause, BUT there&#39;s .stopTimer(
 
 doBefore AND doAfter
 ====================
-These are callbacks that happen before and the slide is changed. Useful when you need to update you external controls:
+These are callbacks that happen before and after the slide is changed. Useful when you need to update you external controls:
 
 	GreatSlider.doAfter = function( currentSlideElement ) {
 		jQuery( "#featured_slider ul.controls li" ).removeClass( "active" );
