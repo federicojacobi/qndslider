@@ -70,9 +70,8 @@ jQuery("document").ready( function() {
 				t = this.timerWait;
 			else {
 				if ( t < 125 ) t = this.timerWait;
-				this.timeWait = t;
 			}
-			
+			this.timerWait = t;
 			this.timer = setInterval( 
 				function() {
 					obj.next();
