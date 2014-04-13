@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Quick and Dirty Slider Demo</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+
+	function Slider( id ) {
+		this.delay = 500;
+		this.slides = jQuery( id ).children(".slide");
+		this.slides.hide();
+		this.slides.first().show();
+		this.currentSlide = 1;
+		this.timer = null;
+		this.doBefore = null;
+		this.doAfter = null;
+		this.timerWait = 1000;
+		this.ready = true;
+		
+		this.next = function() {
+			if ( this.slides.length < 2 || ! this.ready ) return false;
+			var oldSlide = this.getSlide( this.currentSlide );
+			
+			if ( this.currentSlide + 1 > this.slides.length ) {
+				this.currentSlide = 1;
+			} else {
+				this.currentSlide++;
+			}
+			var newSlide = this.getSlide( this.currentSlide );
+			this.switch( oldSlide, newSlide );
+		};
+		
+		this.prev = function() {
+			if ( this.slides.length < 2 || ! this.ready ) return false;
+			var oldSlide = this.getSlide( this.currentSlide );
+			
+			if ( this.currentSlide - 1 < 1 ) {
+				this.currentSlide = this.slides.length;
+			} else {
+				this.currentSlide--;
+			}
+			var newSlide = this.getSlide( this.currentSlide );
+			this.switch( oldSlide, newSlide );
+		};
+		
+		this.goto = function( n, stop ) {
+			if ( n > this.slides.length || n < 1 || ! this.ready )	return;
+			if ( stop !== false )
+				this.stopTimer();
+				
+			var oldSlide = this.getSlide( this.currentSlide );
+			this.currentSlide = n;
+			var newSlide = this.getSlide( this.currentSlide );
+			this.switch( oldSlide, newSlide );
+		};
+		
+		this.switch = function( from, to ) {
+			var obj = this;
+			if ( typeof this.doBefore === 'function' )
+				this.doBefore( from );
+			this.ready = false;
+			jQuery( from )
+				.fadeOut( this.delay, function() {
+					jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
+					if ( typeof obj.doAfter === 'function' )
+						obj.doAfter( to );
+				})
+				.removeClass("active");
+		};
+		
+		this.startTimer = function( t, callback ) {
+			var obj = this;
+			if ( this.timer != null ) {
+				this.stopTimer();
+			}
+			if ( t == null )
+				t = this.timerWait;
+			else {
+				if ( t < 125 ) t = this.timerWait;
+			}
+			this.timerWait = t;
+			
+			this.timer = setInterval( 
+				function() {
+					obj.next();
+					if ( typeof callback === 'function' )
+						callback(); 
+				} , t);
+			return this.timer;
+		};
+		
+		this.stopTimer = function() {
+			clearInterval( this.timer );
+		};
+		
+		this.getSlide = function( n ) {
+			return this.slides[n-1];
+		};
+	}
+
+
+</script>
+
+</head>
+
+<body>
+
+<style>
+/* You should be doing this on a different CSS file, but for ease of understanding im throwing it here. */
+#simpleSlider {
+	width: 300px;
+	height: 150px;
+	border: 1px solid black;
+}
+</style>
+<script>
+	// Again, this section should go in header, but it is easier and clearer to have it here for this example only, so you understand what's going on
+	jQuery(document).ready( function () {
+		var simpleSlider = new Slider( "#simpleSlider" );
+		simpleSlider.startTimer();
+	});
+</script>
+
+<div id="simpleSlider">
+  <div class="slide"><h2>Demo for simple slider</h2><p>Add whatever content you want here</p></div>
+  <div class="slide">Second slide</div>
+  <div class="slide">Third slide</div>
+</div>
+
+
+
+
+
+<hr />
+
+
+
+
+
+<style>
+/* You should be doing this on a different CSS file, but for ease of understanding im throwing it here. */
+#SliderWithInteraction {
+	width: 400px;
+	height: 150px;
+	border: 1px solid black;
+	box-shadow: 0px 3px 5px 0px rgba(50, 50, 50, 0.25);
+}
+#controls li.active {
+	font-weight: bold;
+	color: red;
+}
+</style>
+<script>
+	// Again, this section should go in header, but it is easier and clearer to have it here for this example only, so you understand what's going on
+	jQuery(document).ready( function () {
+		var functionalSlider = new Slider( "#SliderWithInteraction" );
+		functionalSlider.startTimer( 4000 );
+	
+		// Do Pause on hover
+		jQuery( "#SliderWithInteraction" ).hover( 
+			function() { 
+				functionalSlider.stopTimer();
+			}, 
+			function() {
+				functionalSlider.startTimer();
+			}
+		);
+		
+		// NEXT AND PREV Button functionality
+		jQuery( "#prev-button" ).click( function() {
+			functionalSlider.prev();
+		});
+		jQuery( "#next-button" ).click( function() {
+			functionalSlider.next();
+		});
+
+		// Add goto controls 1, 2, 3
+		jQuery( "#controls li" ).click( function() { 
+			jQuery(this).addClass( "active" ).siblings().removeClass( "active" );
+			functionalSlider.goto( jQuery( this ).index() + 1 );
+		});
+		
+		// Because the controls are in YOUR control, AND we added the extra functionality of add the "active" class
+		// to the controls (see jQuery(this).addClass( "active" ).siblings().removeClass( "active" ); ) we need to make that happen
+		// when the timer kick in OR when next or prev are done. So a bit of jQuery sorcery:
+		functionalSlider.doAfter = function( currentSlideElement ) {
+			jQuery( "#controls li" ).removeClass( "active" );
+			jQuery( "#controls li:nth-child(" + functionalSlider["currentSlide"] + ")" ).addClass( "active");
+		};
+		
+		// We would like the fadeIn/fadeOut to be faster
+		functionalSlider.delay = 1000;
+		
+		
+	});
+</script>
+
+<div id="SliderWithInteraction">
+  <div class="slide"><h2>A bit more complex</h2><p>This one has timer, next, prev, pause on hover and goto.</p></div>
+  <div class="slide"><p>Notice the controls are NOT in the slider's DIV, but you can have them here too if you want, it doesnt matter</p></div>
+  <div class="slide">Third slide</div>
+  <div class="slide">Notice how there is a 4th slide, but no control for it. That's because the qndSlider doesn't create the controls, you do. 
+  Just add it to the UL/LI combo. Easy.</div>
+</div>
+
+<ul id="controls">
+	<li class="active">1</li>
+	<li>2</li>
+	<li>3</li>
+</ul>
+
+<a id="prev-button" href="#">PREV</a> - <a id="next-button" href="#">NEXT</a>
+
+
+</body>
+</html>
