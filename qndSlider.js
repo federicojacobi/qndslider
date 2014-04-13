@@ -10,9 +10,10 @@ jQuery("document").ready( function() {
 		this.doBefore = null;
 		this.doAfter = null;
 		this.timerWait = 1000;
+		this.ready = true;
 		
 		this.next = function() {
-			if ( this.slides.length < 2 ) return false;
+			if ( this.slides.length < 2 || ! this.ready ) return false;
 			var oldSlide = this.getSlide( this.currentSlide );
 			
 			if ( this.currentSlide + 1 > this.slides.length ) {
@@ -25,7 +26,7 @@ jQuery("document").ready( function() {
 		};
 		
 		this.prev = function() {
-			if ( this.slides.length < 2 ) return false;
+			if ( this.slides.length < 2 || ! this.ready ) return false;
 			var oldSlide = this.getSlide( this.currentSlide );
 			
 			if ( this.currentSlide - 1 < 1 ) {
@@ -38,7 +39,7 @@ jQuery("document").ready( function() {
 		};
 		
 		this.goto = function( n, stop ) {
-			if ( n > this.slides.length || n < 1 )	return;
+			if ( n > this.slides.length || n < 1 || ! this.ready )	return;
 			if ( stop !== false )
 				this.stopTimer();
 				
@@ -52,10 +53,11 @@ jQuery("document").ready( function() {
 			var obj = this;
 			if ( typeof this.doBefore === 'function' )
 				this.doBefore( from );
+			this.ready = false;
 			jQuery( from )
 				.fadeOut( this.delay, function() {
-					jQuery( to ).fadeIn( obj.delay ).addClass("active");
-				        if ( typeof obj.doAfter === 'function' )
+					jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
+					if ( typeof obj.doAfter === 'function' )
 						obj.doAfter( to );
 				})
 				.removeClass("active");
@@ -72,6 +74,7 @@ jQuery("document").ready( function() {
 				if ( t < 125 ) t = this.timerWait;
 			}
 			this.timerWait = t;
+			
 			this.timer = setInterval( 
 				function() {
 					obj.next();
