@@ -1,4 +1,4 @@
-jQuery("document").ready( function() {
+jQuery(document).ready( function() {
 
 	function Slider( id ) {
 		this.delay = 500;
