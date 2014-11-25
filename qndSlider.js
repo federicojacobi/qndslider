@@ -1,16 +1,12 @@
 jQuery(document).ready( function() {
 
 	function Slider( id ) {
-		this.delay = 500;
-		this.slides = jQuery( id ).children(".slide");
-		this.slides.hide();
-		this.slides.first().show();
-		this.currentSlide = 1;
-		this.timer = null;
-		this.doBefore = null;
-		this.doAfter = null;
-		this.timerWait = 1000;
-		this.ready = true;
+		
+		this.init = function() {
+			this.slides.hide();
+			this.slides.first().show();
+			this.ready = true;
+		};
 		
 		this.next = function() {
 			if ( this.slides.length < 2 || ! this.ready ) return false;
@@ -91,6 +87,20 @@ jQuery(document).ready( function() {
 		this.getSlide = function( n ) {
 			return this.slides[n-1];
 		};
+		
+		this.slides = jQuery( id ).children(".slide");
+		
+		this.delay = 500;
+		this.currentSlide = 1;
+		
+		this.timer = null;
+		this.timerWait = 1000;
+		
+		this.doBefore = null;
+		this.doAfter = null;
+		this.ready = false;
+		
+		this.init();
 	}
 	
 	// All your mods/code goes here ... including the creation of the slider as in var mySlider = new Slider('#mySlider');
