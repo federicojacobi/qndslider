@@ -47,16 +47,21 @@ jQuery(document).ready( function() {
 		
 		this.switch = function( from, to ) {
 			var obj = this;
+			var keepGoing = true;
+			
 			if ( typeof this.doBefore === 'function' )
-				this.doBefore( from );
-			this.ready = false;
-			jQuery( from )
-				.fadeOut( this.delay, function() {
-					jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
-					if ( typeof obj.doAfter === 'function' )
-						obj.doAfter( to );
-				})
-				.removeClass("active");
+				keepGoing = this.doBefore( from );
+			
+			if ( keepGoing !== false ) {
+				this.ready = false;
+				jQuery( from )
+					.fadeOut( this.delay, function() {
+						jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
+						if ( typeof obj.doAfter === 'function' )
+							obj.doAfter( to );
+					})
+					.removeClass("active");
+			}
 		};
 		
 		this.startTimer = function( t, callback ) {

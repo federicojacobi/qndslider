@@ -98,5 +98,7 @@ These are callbacks that happen before and after the slide is changed. Useful wh
 		jQuery( "#featured_slider ul.controls li" ).removeClass( "active" );
 		jQuery( "#featured_slider ul.controls li:nth-child(" + featuredSlider["currentSlide"] + ")" ).addClass( "active");
 	};
+	
+Returning false in doBefore will stop switching the slide (and in turn triggering doAfter).
 
 doBefore and doAfter are called whenever you do .next(), .prev() and .goto(). 
