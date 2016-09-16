@@ -35,14 +35,16 @@ jQuery(document).ready( function() {
 		};
 		
 		this.goto = function( n, stop ) {
-			if ( n > this.slides.length || n < 1 || ! this.ready )	return;
-			if ( stop !== false )
-				this.stopTimer();
-				
-			var oldSlide = this.getSlide( this.currentSlide );
-			this.currentSlide = n;
-			var newSlide = this.getSlide( this.currentSlide );
-			this.switch( oldSlide, newSlide );
+			if ( this.ready ) {
+				if ( n > this.slides.length || n < 1 || ! this.ready )	return;
+				if ( stop !== false )
+					this.stopTimer();
+					
+				var oldSlide = this.getSlide( this.currentSlide );
+				this.currentSlide = n;
+				var newSlide = this.getSlide( this.currentSlide );
+				this.switch( oldSlide, newSlide );
+			}
 		};
 		
 		this.switch = function( from, to ) {
@@ -53,14 +55,14 @@ jQuery(document).ready( function() {
 				keepGoing = this.doBefore( from );
 			
 			if ( keepGoing !== false ) {
-				this.ready = false;
-				jQuery( from )
-					.fadeOut( this.delay, function() {
-						jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
-						if ( typeof obj.doAfter === 'function' )
-							obj.doAfter( to );
-					})
-					.removeClass("active");
+					this.ready = false;
+					jQuery( from )
+						.fadeOut( this.delay, function() {
+							jQuery( to ).fadeIn( obj.delay, function() { obj.ready = true;} ).addClass("active");
+							if ( typeof obj.doAfter === 'function' )
+								obj.doAfter( to );
+						})
+						.removeClass("active");
 			}
 		};
 		
