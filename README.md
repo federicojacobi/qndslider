@@ -50,16 +50,16 @@ Controls for next, previous and go to are separate from the main logic and you c
 ```
 You could attach the click event to another element (assume the control button is inside of the main div wrapper) :
 ```
-	document.querySelector( "#yourName .prev-button" ).addEventListener( 'click', function() {
-		GreatSlider.prev();
-	} );
+document.querySelector( "#yourName .prev-button" ).addEventListener( 'click', function() {
+	GreatSlider.prev();
+} );
 ```
 
 If your slides are created dynamically and you don't know how many slides there are, but still want to do GOTO controls ... no problem, you could do something like this:
 
 ```
-	unknownSlider = new Slider( 'the_unknown' );
-	unknownSlider.goto( unknownSlider.slides.length - 1 ); // go to the last slide.
+unknownSlider = new Slider( 'the_unknown' );
+unknownSlider.goto( unknownSlider.slides.length - 1 ); // go to the last slide.
 ```
 
 TIMERS
@@ -72,9 +72,9 @@ GrearSlider.startTimer( 3000, function() { });    3000ms delay and AFTER the the
 ```
 The last line is great if you need to do something in particular after the timer clicks, but not when the other controls are clicked:
 ```
-	GreatSlider.startTimer( 5000, function() {
-			console.log('The timer has clicked');
-	});
+GreatSlider.startTimer( 5000, function() {
+		console.log('The timer has clicked');
+});
 ```
 If you want to pause on HOVER, there&#39;s no pause, BUT there&#39;s .stopTimer() and you can combine with .startTimer().
 
@@ -82,8 +82,8 @@ doBefore AND doAfter
 ====================
 These are callbacks that happen before and after the slide is changed. Useful when you need to update you external controls:
 ```
-	GreatSlider.on( 'afterSlideChange', function( currentSlideElement ) {
-		// currentSlideElement is a DOM node corresponding to a slide element.
-	};
+GreatSlider.on( 'afterSlideChange', function( currentSlideElement ) {
+	// currentSlideElement is a DOM node corresponding to a slide element.
+};
 ```
 doBefore and doAfter are called whenever you do .next(), .prev() and .goto(). 
